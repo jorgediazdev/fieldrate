@@ -1,0 +1,97 @@
+<% layout("layouts/boilerplate") %>
+<div class="row">
+    <div class="col-6">
+      <div id="fieldCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% field.images.forEach((image, i) => { %>
+            <!-- Singles out first image to activate carousel. -->
+            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+              <img src="<%= image.url %>" class="d-block w-100" alt="">
+            </div>
+          <% }) %>
+        <% if (field.images.length > 1) { %>
+          <button class="carousel-control-prev" type="button" data-bs-target="#fieldCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#fieldCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        <% } %>
+        </div>
+      </div>
+        <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><%= field.name %></h5>
+              <p class="card-text"><%= field.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><%= field.location %></li>
+              <li class="list-group-item">Submited by: <%= field.author.username %></li>
+            </ul>
+            <% if ( currentUser && field.author.equals(currentUser._id)) { %>
+            <div class="card-body">
+              <a href="/fields/<%= field._id %>/edit" class="card-link btn btn-warning">Edit</a>
+              <form class="d-inline" method="POST" action="/fields/<%= field._id %>/?_method=DELETE">
+                <button class="btn btn-danger">Delete</button>
+              </form>
+              <a href="/fields" class="card-link btn btn-info">Back</a>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="col-6">
+    <% if (field.geometry.coordinates[0]) { %>
+      <div id="map" style="width: 500px; height: 300px;"></div>
+    <% } %>
+      <% if (currentUser) { %>
+      <h2>Leave A Review</h2>
+      <form class="mb-3 needs-validation star-select" action="/fields/<%= field._id %>/reviews" method="POST" novalidate>
+        <div class="mb-3">
+          <fieldset class="starability-basic">
+            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="rating" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="rating" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="rating" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="rating" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="rating" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="body">Review:</label>
+          <textarea required class="form-control" name="body" id="reviewBody" cols="30" rows="3"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+      <% } %>
+          <% for (let review of field.reviews) { %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3><%= review.author.username %></h3>
+              <p class="starability-result" data-rating="<%= review.rating %>">
+                Rated: <%= review.rating %> stars
+              </p>
+              <p>Review: <%= review.body %></p>
+              <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                <form method="POST" action="/fields/<%= field._id %>/reviews/<%= review._id %>/?_method=DELETE">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+          <% } %>
+    </div>
+</div>
+
+<script>
+  const mapboxToken = "<%- process.env.MAPBOX_TOKEN %>"
+  // EJS syntax error does not affect the performance of the application.
+  const field = <%- JSON.stringify(field) %>
+</script>
+<script src="/detailsMap.js"></script>

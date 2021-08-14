@@ -1,0 +1,76 @@
+<% layout("layouts/boilerplate") %>
+<div class="row">
+    <h1 class="text-center">Edit <%= field.name %></h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/fields/<%= field.id %>/?_method=PATCH" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="name">Name:</label>
+                <input class="form-control" type="text" id="name" name="name" value="<%= field.name %>" required>
+                <div class="valid-feedback">
+                    Looks good.
+                </div>
+                <div class="invalid-feedback">
+                    Required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location:</label>
+                <input class="form-control" type="text" id="location" name="location" value="<%= field.location %>" required>
+                <div class="valid-feedback">
+                    Looks good.
+                </div>
+                <div class="invalid-feedback">
+                    Required.
+                </div>
+            </div>
+            <!-- <div class="mb-3">
+                <label class="form-label" for="image">Image URL:</label>
+                <input class="form-control" type="text" id="image" name="image" value="<%= field.image %>" required>
+                <div class="valid-feedback">
+                    Looks good.
+                </div>
+                <div class="invalid-feedback">
+                    Required.
+                </div>
+            </div> -->
+            <label class="form-label" for="price">Price:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input class="form-control" type="text" id="location" name="price" value="<%= field.price %>" required>
+                <div class="valid-feedback">
+                    Looks good.
+                </div>
+                <div class="invalid-feedback">
+                    Required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description:</label>
+                <textarea class="form-control" type="text" id="description" name="description" required><%= field.description %></textarea>
+                <div class="valid-feedback">
+                    Looks good.
+                </div>
+                <div class="invalid-feedback">
+                    Required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">Add More Images:</label>
+                <input class="form-control" type="file" id="images" name="images" multiple>
+            </div>
+            <div class="mb-3">
+                <% field.images.forEach((image, i) => { %>
+                <img class="img-thumbnail" src="<%= image.thumbnail %>" alt="">
+                <div class="form-check-inline">
+                    <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= image.fileName %>">
+                </div>
+                <label for="image-<%= i %>">Delete</label>
+                <% }) %>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Save</button>
+                <a class="btn btn-primary" href="/fields/<%= field._id %>">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
