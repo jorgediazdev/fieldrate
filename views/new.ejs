@@ -1,33 +1,11 @@
 <% layout("layouts/boilerplate") %>
-<div class="row">
-    <h1 class="text-center">New Field</h1>
-    <div class="col-md-6 offset-md-3">
-        <form action="/fields" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label class="form-label" for="name">Name:</label>
-                <input class="form-control" type="text" id="name" name="name" required>
-                <div class="valid-feedback">
-                    Looks good.
-                </div>
-                <div class="invalid-feedback">
-                    Required.
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location:</label>
-                <input class="form-control" type="text" id="location" name="location" required>
-                <div class="valid-feedback">
-                    Looks good.
-                </div>
-                <div class="invalid-feedback">
-                    Required.
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="price">Price:</label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input class="form-control" type="text" id="location" name="price" required>
+    <div class="row">
+        <h1 class="text-center">New Field</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/fields" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name:</label>
+                    <input class="form-control" type="text" id="name" name="name" required>
                     <div class="valid-feedback">
                         Looks good.
                     </div>
@@ -35,24 +13,45 @@
                         Required.
                     </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description:</label>
-                <textarea class="form-control" type="text" id="description" name="description" required></textarea>
-                <div class="valid-feedback">
-                    Looks good.
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location:</label>
+                    <input class="form-control" type="text" id="location" name="location" required>
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+                    <div class="invalid-feedback">
+                        Required.
+                    </div>
                 </div>
-                <div class="invalid-feedback">
-                    Required.
+                <div class="mb-3">
+                    <label class="form-label" for="type">Type (Dirt, Grass, Turf...etc):</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="location" name="type" required>
+                        <div class="valid-feedback">
+                            Looks good.
+                        </div>
+                        <div class="invalid-feedback">
+                            Required.
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="images" class="form-label">Images:</label>
-                <input class="form-control" type="file" name="images" id="images" multiple>
-            </div>
-            <div>
-                <button class="btn btn-success">Add Field</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description:</label>
+                    <textarea class="form-control" type="text" id="description" name="description" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+                    <div class="invalid-feedback">
+                        Required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="images" class="form-label">Images:</label>
+                    <input class="form-control" type="file" name="images" id="images" multiple>
+                </div>
+                <div>
+                    <button class="btn btn-success">Add Field</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>

@@ -7,11 +7,11 @@ const imageSchema = new Schema({
     fileName: String
 })
 
-imageSchema.virtual("thumbnail").get(function() {
+imageSchema.virtual("thumbnail").get(function () {
     return this.url.replace("/upload", "/upload/w_200")
 })
 
-const options = { toJSON: { virtuals: true }}
+const options = { toJSON: { virtuals: true } }
 const fieldScema = new Schema({
     name: String,
     images: [imageSchema],
@@ -20,16 +20,15 @@ const fieldScema = new Schema({
     location: String,
     geometry: {
         type: {
-          type: String,
-          enum: ['Point'],
-          required: true
+            type: String,
+            enum: ['Point'],
+            required: true
         },
         coordinates: {
-          type: [Number],
-          required: true
+            type: [Number],
+            required: true
         }
-      },
-    price: Number,
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -42,7 +41,7 @@ const fieldScema = new Schema({
     ]
 }, options)
 
-fieldScema.virtual("properties.popupText").get(function() {
+fieldScema.virtual("properties.popupText").get(function () {
     return `<a href="fields/${this._id}">${this.name}</a>`
 })
 

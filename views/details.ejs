@@ -28,6 +28,7 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><%= field.location %></li>
+              <li class="list-group-item">Type: <%= field.type %></li>
               <li class="list-group-item">Submited by: <%= field.author.username %></li>
             </ul>
             <% if ( currentUser && field.author.equals(currentUser._id)) { %>

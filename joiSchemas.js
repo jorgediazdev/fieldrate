@@ -26,7 +26,7 @@ const Joi = BaseJoi.extend(extension)
 module.exports.fieldSchema = Joi.object({
     name: Joi.string().required().escapeHTML(),
     location: Joi.string().required().escapeHTML(),
-    price: Joi.number().min(0).required(),
+    type: Joi.string().required().escapeHTML(),
     description: Joi.string().required().escapeHTML(),
     deleteImages: Joi.array()
 })

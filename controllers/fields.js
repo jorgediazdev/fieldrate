@@ -14,8 +14,8 @@ module.exports.create = async (req, res) => {
         query: req.body.location,
         limit: 1
     }).send()
-    const { name, location, image, price, description } = req.body
-    const field = new Field({ name: name, location: location, image: image, price: price, description: description, author: req.user._id })
+    const { name, location, image, type, description } = req.body
+    const field = new Field({ name: name, location: location, image: image, type: type, description: description, author: req.user._id })
     field.geometry = geodata.body.features[0].geometry
     field.images = req.files.map(f => ({ url: f.path, fileName: f.filename }))
     await field.save()
@@ -25,8 +25,8 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     const { id } = req.params
-    const { name, location, price, description } = req.body
-    const field = await Field.findByIdAndUpdate({_id: id}, { name: name, location: location, price: price, description: description })
+    const { name, location, type, description } = req.body
+    const field = await Field.findByIdAndUpdate({_id: id}, { name: name, location: location, type: type, description: description })
     const images = req.files.map(f => ({ url: f.path, fileName: f.filename }))
     field.images.push(...images)
     await field.save()
